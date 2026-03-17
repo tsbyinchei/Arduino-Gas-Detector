@@ -15,12 +15,12 @@ void xuLyNhietDo() {
   } 
   else if (tempVal >= 30 && tempVal <= 40) {
     statusTemp = 1;
-    reqFan = true; 
+    reqF = true; 
   } 
   else if (tempVal > 40) {
     statusTemp = 2;
-    reqFan = true;
-    reqWindowOpen = true; 
-    reqBuzzer = true; 
+    reqF = true;
+    reqS1 = true; 
+    reqBz = true; 
   }
 }

@@ -19,9 +19,9 @@ void xuLyGas() {
   } 
   else {
     statusGas = 2; 
-    reqWindowOpen = true; 
-    reqDoorOpen = true;
-    reqBuzzer = true;     
-    reqFan = true; 
+    reqS1 = true; 
+    reqS2 = true;
+    reqBz = true;     
+    reqF = true; 
   }
 }

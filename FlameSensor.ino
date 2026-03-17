@@ -10,10 +10,10 @@ void xuLyLua() {
     if (flameCount >= 3) { 
       statusFlame = 1; // Chuyển trạng thái sang báo cháy
       
-      reqWindowOpen = true; // Mở hết cửa thoát hiểm
-      reqDoorOpen = true;
-      reqBuzzer = true;     // Hú còi
-      reqFan = true; 
+      reqS1 = true; // Mở hết cửa thoát hiểm
+      reqS2 = true;
+      reqBz = true;     // Hú còi
+      reqF = true; 
       flameCount = 3; // Giữ biến đếm không bị tràn số
     }
   } 

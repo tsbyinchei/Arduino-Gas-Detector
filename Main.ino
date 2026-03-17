@@ -6,13 +6,13 @@
 #define DHTPIN 2 
 #define FLAME_PIN 3
 #define BUZZER_PIN 4
-#define SERVO_WINDOW_PIN 5
-#define SERVO_DOOR_PIN 6
+#define SERVO_PIN_1 5
+#define SERVO_PIN_2 6
 #define RELAY_FAN_PIN 7   
 #define DHTTYPE DHT11
 
 // --- KHỞI TẠO ĐỐI TƯỢNG ---
-Servo sWindow, sDoor;
+Servo s1, s2;
 DHT dht(DHTPIN, DHTTYPE); 
 
 // --- BIẾN TOÀN CỤC ---
@@ -23,10 +23,10 @@ int statusGas = 0;
 int statusFlame = 0; 
 int statusTemp = 0;  
 
-bool reqWindowOpen = false;
-bool reqDoorOpen = false;
-bool reqBuzzer = false;
-bool reqFan = false;
+bool reqS1 = false;
+bool reqS2 = false;
+bool reqBz = false;
+bool reqF = false;
 
 void setup() {
   Serial.begin(9600);
@@ -36,21 +36,21 @@ void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
   pinMode(RELAY_FAN_PIN, OUTPUT);
   
-  sWindow.attach(SERVO_WINDOW_PIN);
-  sDoor.attach(SERVO_DOOR_PIN);
+  s1.attach(SERVO_PIN_1);
+  s2.attach(SERVO_PIN_2);
   
-  sWindow.write(0);
-  sDoor.write(0);
+  s1.write(0);
+  s2.write(0);
   digitalWrite(RELAY_FAN_PIN, LOW); 
   digitalWrite(BUZZER_PIN, LOW);
 }
 
 void loop() {
   // 1. Reset toàn bộ cờ yêu cầu phần cứng mỗi vòng lặp
-  reqWindowOpen = false;
-  reqDoorOpen = false;
-  reqBuzzer = false;
-  reqFan = false;
+  reqS1 = false;
+  reqS2 = false;
+  reqBz = false;
+  reqF = false;
 
   // 2. Gọi các hàm xử lý logic từ 3 file cảm biến
   xuLyGas();
@@ -68,19 +68,19 @@ void loop() {
 
 void dieuKhienPhanCung() {
   // Servo Cửa sổ
-  if(reqWindowOpen) sWindow.write(90);
-  else sWindow.write(0);
+  if(reqS1) s1.write(90);
+  else s1.write(0);
 
   // Servo Cửa chính
-  if(reqDoorOpen) sDoor.write(90);
-  else sDoor.write(0);
+  if(reqS2) s2.write(90);
+  else s2.write(0);
 
   // Quạt tản nhiệt
-  if(reqFan) digitalWrite(RELAY_FAN_PIN, HIGH); // Bật
+  if(reqF) digitalWrite(RELAY_FAN_PIN, HIGH); // Bật
   else digitalWrite(RELAY_FAN_PIN, LOW);      // Tắt 
 
   // Còi báo động
-  if(reqBuzzer) digitalWrite(BUZZER_PIN, HIGH);
+  if(reqBz) digitalWrite(BUZZER_PIN, HIGH);
   else digitalWrite(BUZZER_PIN, LOW);
 }
 
